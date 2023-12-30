@@ -1,0 +1,20 @@
+* {
+    font-size: 4vw;
+    background-color: black;
+    color: white;
+}
+
+.Center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Vertical {
+    flex-direction: column;
+}
+
+.Content {
+    padding: 5%;
+    border: .5vw solid #ffff;
+}
