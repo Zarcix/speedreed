@@ -1,5 +1,7 @@
-import { Greet, ButtonClick } from './render'
 'use client';
+
+import React from 'react';
+import { SetTextDisplay, SetInputDisplay, SetReadingSpeed } from './render'
 
 export default function Home() {
   return (
@@ -22,7 +24,7 @@ function CreateTextDisplay() {
           <h1>Read Below!</h1>
         </div>
         <div className="Content">
-          <h1 id="changing-text">Default</h1>
+          <SetTextDisplay />
         </div>
       </div>
   )
@@ -32,12 +34,12 @@ function CreateInput() {
   return (
     <div className="Center Vertical">
       <label>Input Text</label>
-      <input onChange={(e) => {console.log("@todo")}} defaultValue="Sample Text" />
+      <SetInputDisplay />
 
       <br/>
 
       <label>Reading Speed</label>
-      <input onChange={(e) => {console.log("@todo")}} type="number" defaultValue="200" />
+      <SetReadingSpeed />
     </div>
   )
 }

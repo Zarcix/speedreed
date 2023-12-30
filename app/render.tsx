@@ -2,23 +2,46 @@
 
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri'
+import React from 'react';
 
-export function Greet() {
-  const [greeting, setGreeting] = useState('');
+export function SetTextDisplay() {
+    const [text, setText] = useState('');
+    
+    useEffect(() => {
+        invoke<string>('get_current_text')
+            .then(result => setText(result.split(' ')[0]))
+            .catch(console.error)
+        }, [])
 
-  useEffect(() => {
-    invoke<string>('test', { input: 'Next.js' })
-      .then(result => setGreeting(result))
-      .catch(console.error)
-  }, [])
-
-  // Necessary because we will have to use Greet as a component later.
-  return <div>{greeting}</div>;
+    return (
+        <h1 id="changing-text">{text}</h1>
+        )
 }
 
-export function ButtonClick() {
+export function SetInputDisplay() {
+    const [text, setText] = useState('');
+    
+    useEffect(() => {
+        invoke<string>('get_current_text')
+            .then(result => setText(result))
+            .catch(console.error)
+        }, [])
 
-    invoke<string>('test', { input: 'newtext' })
-        .then((result) => (document.getElementById("future-text") as HTMLElement).innerHTML = result)
-        .catch(console.error)
+    return (
+        <textarea onChange={(event) => console.log(event.target.value)} defaultValue={text} />
+        )
+}
+
+export function SetReadingSpeed() {
+    const [speed, setSpeed] = useState(0);
+
+    useEffect(() => {
+        invoke<number>('get_current_speed')
+            .then(speed => setSpeed(speed))
+            .catch(console.error)
+        }, [])
+    
+    return (
+        <input onChange={(event) => console.log(event.target.value)} type="number" defaultValue={speed} />
+    )
 }
