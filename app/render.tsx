@@ -2,16 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri'
-import React from 'react';
+import { listen } from '@tauri-apps/api/event'
 
-export function SetTextDisplay() {
+export function TextUpdate() {
     const [text, setText] = useState('');
-    
+
     useEffect(() => {
-        invoke<string>('get_current_text')
-            .then(result => setText(result.split(' ')[0]))
-            .catch(console.error)
-        }, [])
+        listen('text-update', (event: any) => {
+            console.log("Text Updating: " + event.payload.message)
+            setText(event.payload.message)
+        })
+    })
 
     return (
         <h1 id="changing-text">{text}</h1>
@@ -20,15 +21,16 @@ export function SetTextDisplay() {
 
 export function SetInputDisplay() {
     const [text, setText] = useState('');
-    
     useEffect(() => {
         invoke<string>('get_current_text')
             .then(result => setText(result))
             .catch(console.error)
         }, [])
 
+    
+
     return (
-        <textarea onChange={(event) => console.log(event.target.value)} defaultValue={text} />
+        <textarea onChange={(event) => invoke('set_current_text', { text: event.target.value })} defaultValue={text} />
         )
 }
 
@@ -42,6 +44,6 @@ export function SetReadingSpeed() {
         }, [])
     
     return (
-        <input onChange={(event) => console.log(event.target.value)} type="number" defaultValue={speed} />
+        <input onChange={(event) => invoke('set_current_speed', { speed: event.target.value })} type="number" defaultValue={speed} />
     )
 }

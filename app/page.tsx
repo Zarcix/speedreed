@@ -1,7 +1,5 @@
-'use client';
-
 import React from 'react';
-import { SetTextDisplay, SetInputDisplay, SetReadingSpeed } from './render'
+import { TextUpdate, SetInputDisplay, SetReadingSpeed } from './render'
 
 export default function Home() {
   return (
@@ -24,7 +22,7 @@ function CreateTextDisplay() {
           <h1>Read Below!</h1>
         </div>
         <div className="Content">
-          <SetTextDisplay />
+          <TextUpdate />
         </div>
       </div>
   )
