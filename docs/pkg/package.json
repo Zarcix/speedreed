@@ -1,0 +1,14 @@
+{
+  "name": "speedreed",
+  "version": "0.0.1",
+  "files": [
+    "speedreed_bg.wasm",
+    "speedreed.js",
+    "speedreed.d.ts"
+  ],
+  "module": "speedreed.js",
+  "types": "speedreed.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
